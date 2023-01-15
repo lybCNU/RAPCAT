@@ -1,12 +1,12 @@
 % C.elegant cell recognition by Lei Qu
-%		1. predict cell's ID (cell num = 558)
+%	1. predict cell's ID (cell num = 558)
 %       2. given manual recog result, calculate recognition accuracy
 %       3. deal cell num < 558
 %       4. output cell recog fidelity -> add new term apo.fidelity
 %       5. preserve some cell's manual recog result(comment=*FIX*)
 % modified by Yongbin Li
-%		1. deal cell num slightly more than 558 (May encounter bugs)
-%		2. use multiple atlas as template for cell recognition
+%	1. deal cell num slightly more than 558 (May encounter bugs)
+%	2. use multiple atlas as template for cell recognition
 function main(datapath,str_flagID)
 	switch nargin
 		case 2
