@@ -1,7 +1,4 @@
-%分析atlas中各cell的位置变化统计信息
-%   1.以每一条train100_valid线虫为模板，将其他线虫仿射对齐到模板线虫，取平均获得100个初始atlas,分析cell位置变化std，
-%   2.使用分段仿射对齐将train100_valid映射到每一个atlas中，计算fidelity，取fidelity平均值最高的为最终atlas
-%   3.保存新的atlas
+%generate 100 atlas base on train100 data
 clc
 clear all
 close all
@@ -10,7 +7,7 @@ addpath('./matlab_io_basicdatatype/');
  filepath='./traindata/train100/';
  L=dir([filepath,'/*.apo']);
  for k=1:length(L)
-     %读入训练数据
+     %璇诲叆璁粌鏁版嵁
      filename=[filepath,'/',L(k).name];
      apo_data=load_v3d_pointcloud_file(filename);
      arr_apo_data{k}=apo_data;

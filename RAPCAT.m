@@ -1,12 +1,12 @@
 % C.elegant cell recognition by Lei Qu
-%		1. predict cell's ID (cell num = 558)
+%	1. predict cell's ID (cell num = 558)
 %       2. given manual recog result, calculate recognition accuracy
 %       3. deal cell num < 558
 %       4. output cell recog fidelity -> add new term apo.fidelity
 %       5. preserve some cell's manual recog result(comment=*FIX*)
 % modified by Yongbin Li
-%		1. deal cell num slightly more than 558
-%		2. use multiple atlas as template for cell recognition
+%	1. deal cell num slightly more than 558 (May encounter bugs)
+%	2. use multiple atlas as template for cell recognition
 function main(datapath,str_flagID)
 	switch nargin
 		case 2
@@ -338,9 +338,9 @@ function main(datapath,str_flagID)
                     info_man_vs_pre{i,2}=-1;                           %apo index
                     info_man_vs_pre{i,3}='';                           %pre name
                     info_man_vs_pre{i,4}='---';                        %---:miss, xxx:wrong
-                else    %ÕÒµ½µ±Ç°atlas name±»¸³¸øÁËÄÄ¸öcell²¢Ìî³ä
-                    ind_apo_sub=ind_validcell(ind_atlas2validsub_pre(i));%µ±Ç°atlas name±»¸³¸øµÄÄÇ¸öcellµÄindex
-                    cell_manID=strtrim(apo_sub{ind_apo_sub}.name);%±»¸³ÓèĞÂnameµÄcellÔ­Ê¼manual name
+                else    %æ‰¾åˆ°å½“å‰atlas nameè¢«èµ‹ç»™äº†å“ªä¸ªcellå¹¶å¡«å……
+                    ind_apo_sub=ind_validcell(ind_atlas2validsub_pre(i));%å½“å‰atlas nameè¢«èµ‹ç»™çš„é‚£ä¸ªcellçš„index
+                    cell_manID=strtrim(apo_sub{ind_apo_sub}.name);%è¢«èµ‹äºˆæ–°nameçš„cellåŸå§‹manual name
                     for ii=1:558
                         if(strcmpi(cell_manID,strtrim(apo_atlas{ii}.name)))
                             info_man_vs_pre{ii,2}=ind_apo_sub;
@@ -458,13 +458,13 @@ function [ind_tar2sub,fid_tar2sub,fid_tar2sub_mean_all,fid_tar2sub_min_all,rec_a
             Ry=[cos(sita_y), 0, -sin(sita_y); 0, 1, 0; sin(sita_y), 0, cos(sita_y)];
             Rz=[cos(sita_z), sin(sita_z), 0; -sin(sita_z), cos(sita_z), 0; 0, 0, 1];
             x=x_bk*Rz*Ry*Rx;
-            %¼ÇÂ¼¸÷Çé¿öÁ½µã¼¯½Ó½ü³Ì¶Ètmp(i,j)=dis(y(i),x(j))^2
+            %è®°å½•å„æƒ…å†µä¸¤ç‚¹é›†æ¥è¿‘ç¨‹åº¦tmp(i,j)=dis(y(i),x(j))^2
             tmp = zeros (ymax, xmax);
             for j=1:dim
                 tmp = tmp + (y(:,j) * ones(1,xmax) - ones(ymax,1) * x(:,j)').^2;
             end
             near=sort(tmp,2);%sort each rows
-            dis(i)=sum(sum(near(:,1:5)));%×î½üµÄ5¸öµã¾àÀëÇóºÍ
+            dis(i)=sum(sum(near(:,1:5)));%æœ€è¿‘çš„5ä¸ªç‚¹è·ç¦»æ±‚å’Œ
         end
         [q,p]=sort(dis);
         sita_x=theta(p(1),1)/180*pi;  sita_y=theta(p(1),2)/180*pi;  sita_z=theta(p(1),3)/180*pi;
@@ -643,9 +643,9 @@ function [ind_tar2sub,fid_tar2sub,fid_tar2sub_mean_all,fid_tar2sub_min_all,rec_a
             clear i arr_pos_var_pwaff xyzdiff_atlas2topre exponential_term
             % assign a big energy to fixed cell pairs (so that they can get fixed during optimization)
             for i=1:size(ind_tar2sub_fix,1)
-                ind_tar=ind_tar2sub_fix(i,1);%µÚi¸ösub±»¹Ì¶¨µ½µÄatlas ind
-                ind_sub=find(ind_tar2sub==ind_tar2sub_fix(i,2));%¹Ì¶¨µÄµÚi¸ösubÔÚÇ°´ÎÊ¶±ğÖĞÆ¥ÅäµÄatlas ind
-                ind_sub_valid=find(ind_tar2sub_valid==ind_sub);%¹Ì¶¨µÄµÚi¸ösubÔÚµ±Ç°ÖØ×éµÄX_subÖĞµÄind
+                ind_tar=ind_tar2sub_fix(i,1);%ç¬¬iä¸ªsubè¢«å›ºå®šåˆ°çš„atlas ind
+                ind_sub=find(ind_tar2sub==ind_tar2sub_fix(i,2));%å›ºå®šçš„ç¬¬iä¸ªsubåœ¨å‰æ¬¡è¯†åˆ«ä¸­åŒ¹é…çš„atlas ind
+                ind_sub_valid=find(ind_tar2sub_valid==ind_sub);%å›ºå®šçš„ç¬¬iä¸ªsubåœ¨å½“å‰é‡ç»„çš„X_subä¸­çš„ind
                 shape_prob(ind_tar,ind_sub_valid)=10;%max(shape_prob=1.0)
             end
 
