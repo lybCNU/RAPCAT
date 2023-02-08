@@ -3,7 +3,7 @@
 
 
 # Usage
-Once downloaded, go to `RAPCAT-main` folder, and run `RAPCAT('exampleData/')` for example Data annotation.
+Once downloaded, go to `RAPCAT-main` folder with matlab, and run `RAPCAT('exampleData/')` in matlab command prompt for example Data annotation.
 
 After finished, you can check the result with vano program in `vano_win32_1.741` folder.
 
